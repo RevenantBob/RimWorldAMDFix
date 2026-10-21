@@ -4,13 +4,28 @@ Fixes **RimWorld 1.7 (beta) items drawing as only their top-left corner, or not 
 
 If your stockpiles look empty, packaged meals show as a small corner, and "forbidden" X marks float over bare ground, this is the bug. Pawns, buildings and terrain draw fine; items on the ground do not.
 
+> [!WARNING]
+> **Use at your own risk.** This is an unofficial, community-made fix, not affiliated with Ludeon Studios or AMD. It is provided "as is", without warranty of any kind (see [LICENSE](LICENSE)), and I am not responsible for any problems that may result from using it. I made this to help other players hit by the same bug until it is fixed properly.
+
+## Testing status
+
+So far this has only been tested on one PC:
+
+- AMD Radeon RX 9070 XT, driver 26.10.1, Windows 11
+- RimWorld 1.7.4984 (beta)
+
+It checks your driver at startup and only switches itself on if the bug is present, but it has not yet been tried on other GPUs, drivers or setups. If you try it, please [open an issue](https://github.com/RevenantBob/RimWorldAMDFix/issues) saying whether it worked, with your GPU, driver version and the log file (see [Is it working?](#is-it-working)).
+
 ## Install
 
-1. Download the latest `RimWorldAMDFix-vX.Y.Z.zip` from [Releases](https://github.com/RevenantBob/RimWorldAMDFix/releases).
-2. Close RimWorld, extract the zip, and double-click **`Install.bat`**.
-3. Start RimWorld as usual. The first start takes a little longer while the game rebuilds its texture atlases.
+1. Close RimWorld.
+2. Download the latest `RimWorldAMDFix-vX.Y.Z.zip` from [Releases](https://github.com/RevenantBob/RimWorldAMDFix/releases), right-click it and choose **Extract All...**
+3. Open the extracted folder and double-click **`Install.bat`**.
+4. Start RimWorld as usual. The first start takes a little longer while the game rebuilds its texture atlases.
 
 No administrator rights are needed, and RimWorld's own files are not changed.
+
+From a terminal, run `.\Install.bat` inside the extracted folder. A bare `install` does not work: PowerShell never runs commands from the current folder, so it would start some other program's `install` instead.
 
 ## Uninstall
 
@@ -60,6 +75,10 @@ Requires Windows and either Visual Studio (Desktop development with C++) or [zig
 
 This downloads the Vulkan headers (the only dependency), builds `RimWorldAMDFix.dll`, and writes the release zip to `dist\`. The code style is defined in `.clang-format`; format with `clang-format -i src\*.c tools\repro\*.c`. Pushing a tag `vX.Y.Z` that matches the `VERSION` file makes GitHub Actions build and publish a release.
 
+## License
+
+[MIT](LICENSE). The software is provided "as is", without warranty of any kind.
+
 ## Repository layout
 
 | Path | Contents |
@@ -68,3 +87,4 @@ This downloads the Vulkan headers (the only dependency), builds `RimWorldAMDFix.
 | `installer/` | `Install.bat`, `Uninstall.bat` and the PowerShell scripts behind them |
 | `tools/repro/` | Standalone programs that reproduce the driver bug, for bug reports |
 | `docs/TECHNICAL.md` | How the bug was found and how the fix works |
+| `.github/release-notes.md` | Template for the release description (version filled in by `build.ps1`) |

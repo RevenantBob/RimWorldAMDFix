@@ -72,7 +72,7 @@ if ($Compiler -eq 'msvc') {
 if (-not (Test-Path $Dll)) { throw 'Build produced no DLL.' }
 
 # Package layout:
-#   RimWorldAMDFix-vX.Y.Z\Install.bat, Uninstall.bat, README.txt
+#   RimWorldAMDFix-vX.Y.Z\Install.bat, Uninstall.bat, README.txt, LICENSE.txt
 #   RimWorldAMDFix-vX.Y.Z\files\RimWorldAMDFix.dll, VkLayer_RimWorldAMDFix.json, Install.ps1, Uninstall.ps1, VERSION
 $PkgName = "RimWorldAMDFix-v$Version"
 $Pkg = Join-Path $DistDir $PkgName
@@ -95,6 +95,11 @@ Copy-Crlf (Join-Path $Root 'installer\Uninstall.ps1') (Join-Path $Files 'Uninsta
 Copy-Crlf (Join-Path $Root 'installer\Install.bat') (Join-Path $Pkg 'Install.bat')
 Copy-Crlf (Join-Path $Root 'installer\Uninstall.bat') (Join-Path $Pkg 'Uninstall.bat')
 Copy-Crlf (Join-Path $Root 'installer\README.txt') (Join-Path $Pkg 'README.txt')
+Copy-Crlf (Join-Path $Root 'LICENSE') (Join-Path $Pkg 'LICENSE.txt')
+
+# Release description used by the GitHub workflow: the template with this version filled in.
+$notes = [IO.File]::ReadAllText((Join-Path $Root '.github\release-notes.md')).Replace('@VERSION@', $Version)
+[IO.File]::WriteAllText((Join-Path $DistDir 'release-notes.md'), $notes, (New-Object Text.UTF8Encoding $false))
 
 $Zip = Join-Path $DistDir "$PkgName.zip"
 if (Test-Path $Zip) { Remove-Item $Zip -Force }

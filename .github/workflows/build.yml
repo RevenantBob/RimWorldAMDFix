@@ -29,15 +29,20 @@ jobs:
         shell: pwsh
         run: ./build.ps1 -Compiler msvc
 
+      # Upload the package folder, not the zip: GitHub zips artifacts itself, and uploading our zip
+      # would produce a zip inside a zip.
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
           name: RimWorldAMDFix
-          path: dist/*.zip
+          path: dist/RimWorldAMDFix-v*/
 
+      # The description comes from .github/release-notes.md (disclaimer, testing status, install steps),
+      # filled in by build.ps1. GitHub's generated list of changes is appended below it.
       - name: Publish release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*.zip
+          body_path: dist/release-notes.md
           generate_release_notes: true
