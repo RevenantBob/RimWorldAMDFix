@@ -1,0 +1,19 @@
+{
+    "file_format_version": "1.2.0",
+    "layer": {
+        "name": "VK_LAYER_RimWorldAMDFix",
+        "type": "GLOBAL",
+        "library_path": ".\\RimWorldAMDFix.dll",
+        "api_version": "1.4.341",
+        "implementation_version": "1",
+        "description": "RimWorldAMDFix @VERSION@: fixes RimWorld 1.7 items drawing as corners on AMD GPUs",
+        "functions": {
+            "vkNegotiateLoaderLayerInterfaceVersion": "RimWorldAMDFix_NegotiateLoaderLayerInterfaceVersion",
+            "vkGetInstanceProcAddr": "RimWorldAMDFix_GetInstanceProcAddr",
+            "vkGetDeviceProcAddr": "RimWorldAMDFix_GetDeviceProcAddr"
+        },
+        "disable_environment": {
+            "DISABLE_RIMWORLDAMDFIX": "1"
+        }
+    }
+}

@@ -1,0 +1,17 @@
+# Code style for this repository. Format with:  clang-format -i src\*.c tools\repro\*.c
+BasedOnStyle: Microsoft
+BreakBeforeBraces: Allman
+IndentWidth: 4
+ColumnLimit: 120
+PointerAlignment: Right
+
+# Every if/for/while body gets braces and its own lines.
+InsertBraces: true
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: None
+AllowShortCaseLabelsOnASingleLine: false
+
+IndentCaseLabels: true
+SortIncludes: Never
